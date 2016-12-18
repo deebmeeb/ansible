@@ -1,0 +1,23 @@
+- hosts: slaves
+  user: root
+  vars:
+    # created with:
+    # python -c 'import crypt; print crypt.crypt("This is my Password", "$1$SomeSalt$")
+    passwordvar: $1$SomeSalt$OZGXlYb/sjoJg2A27.n0B0
+  tasks:
+    - group:
+        name: ansible
+        gid: 1001
+    - user: 
+        name: ansible 
+        password: "{{passwordvar}}" 
+        groups: ansible 
+        uid: 1001 
+        shell: /bin/bash
+        home: /home/ansible
+        append: yes
+    - authorized_key:
+        user: ansible
+        key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDTN18NViE+WWW7OoZSP+3SaFinhUPyU4eC25dJUX7lLNvLl2sJ5sYbRrt6ZZv44qDqpQZzdE+Gqa7hDh3uAdGh/GIJ1P548VwhTrjLzWc/dXntJ7J2XgQW+eBMXKWFnk6DikQAWCIoo8D5jKiJgUVtqZVXQ04QQA70dWjXeGJx7QQiU2VRYNBHilj84dR4wX6f26MYgIbUutD67wAJa9hCaT8GsUGfyljkyIwqtv4UDHxkMJKBGOmvIJjcoZT5ld6zVe/HzNzuVL/LJb9kvm8kM47ObcfLZ/wd534BHMTVGFmCEILNDrKbBTZbqtBJriHzsg3N+wvcqF4OMob+PR+ldURISQ1lstSAXnuYv4DRbn4LCVU9FQ4x3FqxLkeHfWj0FbtLUU4erTzD1q0Da+X0YwcjLpPBlRY642wg1U45u/s5xmkYz945UZoPt0uA0aWEvBO83h8+cOAO5cVgl0Z1jUl6FXdyCaoJMlPGVJcxh4C9gAarm8j1pgy6hfq7AxNG8kILttyB+3oiGRYNcxwhV/6Qm7RKpwFVE6/hGrMoXry8PuoIc8NKmWE2/S4WM6kbiGSUyfeCLQoG4pioavb5Ty0BPQzu2hfaN564ovr4EHAqW2/KSIc+V4mAmgqCmFwmhUrjFSnSzDqaPHemV2FUzjOOlJwjDXjeLtAScfaQSw== ansible@ubuntu-master
+#- name: Add Ansible user
+#    action: user name=ansible password=notmypass

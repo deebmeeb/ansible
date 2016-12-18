@@ -1,0 +1,5 @@
+- hosts: '{{ target }}'
+  user: root
+  tasks:
+    - name: Shutdown machine
+      command: shutdown -h now "Ansible shutdown"
